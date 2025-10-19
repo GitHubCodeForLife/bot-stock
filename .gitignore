@@ -1,0 +1,5 @@
+# folder env ignore 
+/env
+
+# pycache ignore 
+/__pycache__

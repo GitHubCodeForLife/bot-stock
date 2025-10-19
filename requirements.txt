@@ -1,0 +1,5 @@
+vnstock
+requests
+pandas
+flask
+Flask-APScheduler
