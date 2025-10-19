@@ -1,13 +1,15 @@
 from flask import Flask
 from flask_apscheduler import APScheduler
 from datetime import datetime
-from bot.app.scheduler.schedulerTask import task_send_notif_stock_price
+from app.scheduler.schedulerTask import task_send_notif_stock_price
+from config import Config
+from apscheduler.schedulers.background import BackgroundScheduler
 
 # Initialize scheduler
-scheduler = APScheduler()
+scheduler = BackgroundScheduler()
 
 # Define a scheduled job
-@scheduler.task('interval', id='do_job_1', seconds=10, misfire_grace_time=10, max_instances=1)
+# @scheduler.task('interval', id='do_job_1', seconds=10, misfire_grace_time=10, max_instances=1)
 def job():
     print(f"[{datetime.now()}] Running scheduled task...")
     task_send_notif_stock_price()
@@ -20,8 +22,9 @@ def create_app():
     from .routes import main
     app.register_blueprint(main)
 
-    scheduler.init_app(app)
     scheduler.start()
+    scheduler.add_job(func=job, trigger="interval", seconds=20, id='job_1', replace_existing=True)
+    Config.scheduler = scheduler
 
     return app
 

@@ -1,22 +1,22 @@
-from bot.app.telegram.chatBot import ChatBot
-from bot.app.vnstock.stock import StockUtil
-from bot.app.utils.messageTemplate import MessageTemplate
-from bot.app.utils.excelHelper import ExcelHelper
+from app.telegram.chatBot import ChatBot
+from app.vnstock.stock import StockUtil
+from app.utils.messageTemplate import MessageTemplate
+from app.utils.excelHelper import ExcelHelper
+from vnstock.botbuilder.noti import Messenger
 
 from config import Config
 
 ############ Stock price function - start ############
 stock_code_list = ["VND", "CEO", "GVR"]
+notif = Messenger(platform="telegram", channel=Config.chat_id, token_key=Config.token)
 
 def task_send_notif_stock_price():
-
-    chat_bot = ChatBot(Config.token, Config.chat_id)
 
     # price = StockUtil.get_price_between_time("CEO","2025-10-14 10:00","2025-10-14 10:02")
     # print(price)
 
     for stock_code in stock_code_list:
-       quote_intraday(stock_code)
+        print(stock_code)
         # latest_price_by_date = StockUtil.get_latest_price_by_date_of_stock(stock_code)
         # current_price = StockUtil.get_current_price_in_real_time(stock_code)
         # print(f"Stock: {stock_code}, Latest Price by Date: {latest_price_by_date}, Current Price: {current_price}")
@@ -34,13 +34,3 @@ def task_send_notif_stock_price():
         #     chat_bot.send_message(message)
 
     ############ Stock price function - end ############
-
-def quote_intraday(stock_code):
-    for stock_code in stock_code_list:
-        df = StockUtil.quote_intraday(stock_code)
-        # filter all row that have volumen > 1000, print them
-        if df is not None:
-            filtered_df = df[df['volume'] > 1000]
-            print(filtered_df)
-            ExcelHelper.write_excel("intraday_stock_data.xlsx", 
-                                    sheet_name=stock_code, data_frame=filtered_df)

@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "scheduler_version": "3.11.0",
+  "jobs": [
+    {
+      "version": 1,
+      "id": "job_1",
+      "func": "app:job",
+      "trigger": {
+        "__apscheduler_class__": "apscheduler.triggers.interval:IntervalTrigger",
+        "__apscheduler_state__": {
+          "version": 2,
+          "timezone": {
+            "__apscheduler_pickle__": "gAWVVQAAAAAAAACMCGJ1aWx0aW5zlIwHZ2V0YXR0cpSTlIwIem9uZWluZm+UjAhab25lSW5mb5STlIwJX3VucGlja2xllIaUUpSMDEFzaWEvQmFuZ2tva5RLAYaUUpQu"
+          },
+          "start_date": {
+            "__apscheduler_pickle__": "gAWVfgAAAAAAAACMCGRhdGV0aW1llIwIZGF0ZXRpbWWUk5RDCgfpChMRGQwEpRyUjAhidWlsdGluc5SMB2dldGF0dHKUk5SMCHpvbmVpbmZvlIwIWm9uZUluZm+Uk5SMCV91bnBpY2tsZZSGlFKUjAxBc2lhL0Jhbmdrb2uUSwGGlFKUhpRSlC4="
+          },
+          "end_date": null,
+          "interval": {
+            "__apscheduler_pickle__": "gAWVJAAAAAAAAACMCGRhdGV0aW1llIwJdGltZWRlbHRhlJOUSwBLFEsAh5RSlC4="
+          },
+          "jitter": null
+        }
+      },
+      "executor": "default",
+      "args": [],
+      "kwargs": {},
+      "name": "job",
+      "misfire_grace_time": 1,
+      "coalesce": true,
+      "max_instances": 1,
+      "next_run_time": {
+        "__apscheduler_pickle__": "gAWVfgAAAAAAAACMCGRhdGV0aW1llIwIZGF0ZXRpbWWUk5RDCgfpChMRGQwEpRyUjAhidWlsdGluc5SMB2dldGF0dHKUk5SMCHpvbmVpbmZvlIwIWm9uZUluZm+Uk5SMCV91bnBpY2tsZZSGlFKUjAxBc2lhL0Jhbmdrb2uUSwGGlFKUhpRSlC4="
+      }
+    }
+  ]
+}

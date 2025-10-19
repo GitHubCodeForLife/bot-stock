@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jobs.css') }}">
+</head>
+<body>
+    <h1>Scheduled Jobs</h1>
+    <!-- job csv link -->
+    <a href="{{ url_for('static', filename='files/jobs.json') }}" download>Download All Jobs</a>
+    <ul class="job-list">
+        {% for job in job_list %}
+            <li class="job-item">
+                <strong>ID:</strong> {{ job.id }}<br>
+                <strong>Name:</strong> {{ job.name }}<br>
+                <strong>func:</strong> {{ job.func }}<br>
+                <strong>Next Run Time:</strong> {{ job.next_run_time }}<br>
+                <strong>Trigger:</strong> {{ job.trigger }}
+            </li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
