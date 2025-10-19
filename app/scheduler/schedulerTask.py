@@ -16,7 +16,8 @@ def task_send_notif_stock_price():
     # print(price)
 
     for stock_code in stock_code_list:
-        print(stock_code)
+        # print(stock_code)
+        notif.send_message(f"Checking stock price for {stock_code}...")
         # latest_price_by_date = StockUtil.get_latest_price_by_date_of_stock(stock_code)
         # current_price = StockUtil.get_current_price_in_real_time(stock_code)
         # print(f"Stock: {stock_code}, Latest Price by Date: {latest_price_by_date}, Current Price: {current_price}")

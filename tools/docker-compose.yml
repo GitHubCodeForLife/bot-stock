@@ -1,0 +1,23 @@
+version: '3'
+services:
+    mysql:
+        container_name: mysql
+        restart: always
+        image: mysql:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+        volumes:
+            - /home/kali/Docker/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+            - /home/kali/Docker/mysql/data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8181:8080
+        depends_on:
+            - mysql

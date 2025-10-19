@@ -3,3 +3,5 @@ requests
 pandas
 flask
 Flask-APScheduler
+flask-sqlalchemy 
+pymysql

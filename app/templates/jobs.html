@@ -10,17 +10,33 @@
     <h1>Scheduled Jobs</h1>
     <!-- job csv link -->
     <a href="{{ url_for('static', filename='files/jobs.json') }}" download>Download All Jobs</a>
-    <ul class="job-list">
-        {% for job in job_list %}
-            <li class="job-item">
-                <strong>ID:</strong> {{ job.id }}<br>
-                <strong>Name:</strong> {{ job.name }}<br>
-                <strong>func:</strong> {{ job.func }}<br>
-                <strong>Next Run Time:</strong> {{ job.next_run_time }}<br>
-                <strong>Trigger:</strong> {{ job.trigger }}
-            </li>
-        {% endfor %}
-    </ul>
+    <table class="job-list">
+        <thead>
+            <tr>
+                <th>Job ID</th>
+                <th>Job Name</th>
+                <th>Function</th>
+                <th>Interval</th>
+                <th>next_run_time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in job_list %}
+            <tr>
+                <td>{{ job.id }}</td>
+                <td>{{ job.name }}</td>
+                <td>{{ job.func }}</td>
+                <td>{{ job.trigger }}</td>
+                <td>{{ job.next_run_time }}</td>
+                <td>
+                   <button>Edit Job</button>
+                   <button class="delete-btn">Delete Job</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     
 </body>
 </html>
