@@ -1,5 +1,5 @@
 # create python env 
-python3 -m venv env
+python -m venv env
 
 # check if "env/Scripts/activate" file exists
 

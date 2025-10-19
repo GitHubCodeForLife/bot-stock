@@ -1,5 +1,6 @@
 # folder env ignore 
 /env
 
-# pycache ignore 
-/__pycache__
+# pycache ignore in both root and subfolders
+__pycache__/
+*/__pycache__/
