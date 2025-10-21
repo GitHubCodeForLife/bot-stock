@@ -9,10 +9,9 @@ class StockUtil:
             if date is None:
                 date = datetime.now().strftime("%Y-%m-%d")
             today = datetime.strptime(date, "%Y-%m-%d")
-            yesterday = today - timedelta(days=1)
             
             df = stock.quote.history(
-                start=yesterday.strftime("%Y-%m-%d"),
+                start=today.strftime("%Y-%m-%d"),
                 end=today.strftime("%Y-%m-%d"),
                 interval='1D'
             )
@@ -62,16 +61,15 @@ class StockUtil:
         try:
             stock = Vnstock().stock(symbol=stock_code, source='VCI')
             # interval '1m' for 1 minute data
+            today = datetime.now()
+
             df = stock.quote.history(
-                start=(datetime.now() - timedelta(minutes=10)).strftime("%Y-%m-%d %H:%M"),
-                end=datetime.now().strftime("%Y-%m-%d %H:%M"),
+                start=today.strftime("%Y-%m-%d"),
+                end=today.strftime("%Y-%m-%d"),
                 interval='1m'
             )
-            if df.empty:
-                print("No data found for the given time range.")
-                return None
-            current_price = df.tail(1)['close'].values[0]
-            return current_price
+
+            return df.tail(1)['close'].values[0]
         except Exception as e:
             print(f"Error fetching real-time stock price: {e}")
             return None

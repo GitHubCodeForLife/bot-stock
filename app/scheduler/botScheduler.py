@@ -1,6 +1,5 @@
 from app.model.models import JobScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
-from app.scheduler.schedulerTask import mapJobFunction
 
 class BotScheduler:
     def __init__(self):
@@ -16,13 +15,15 @@ class BotScheduler:
 
         # 3. Load jobs from database
         jobs = JobScheduler.query.all()
+        from app.scheduler.schedulerTask import mapJobFunction
+
         for job in jobs:
             self.scheduler.add_job(
                 func=mapJobFunction.get(job.job_func),
                 trigger='interval',
                 seconds=job.job_interval,
                 id=job.job_id,
-                replace_existing=True, 
+                replace_existing=False, 
                 args=[job.job_data] if job.job_data else []
             )
             print(f"Loaded job {job.job_id} from database")

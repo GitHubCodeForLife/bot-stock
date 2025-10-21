@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 from app.shareData import ShareData
 from app.model.models import User
 main = Blueprint('main', __name__)
@@ -22,4 +22,4 @@ def reload_jobs():
     ShareData.botScheduler.reload_jobs_from_db()
     ShareData.botScheduler.start()
     # Redirect back to jobs page
-    return jobPage()
+    return redirect(url_for('main.jobPage'))

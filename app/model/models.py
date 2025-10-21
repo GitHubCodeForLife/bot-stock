@@ -2,7 +2,7 @@ from sqlalchemy import Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
-
+from datetime import datetime
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -24,3 +24,12 @@ class JobOptLog(db.Model):
     job_status : Mapped[str] = mapped_column()
     job_time : Mapped[str] = mapped_column()
     job_message : Mapped[str] = mapped_column()
+
+class NotificationLog(db.Model):
+    log_id : Mapped[int] = mapped_column(primary_key=True)
+    platform : Mapped[str] = mapped_column()
+    channel : Mapped[str] = mapped_column()
+    message : Mapped[str] = mapped_column()
+    send_time : Mapped[datetime] = mapped_column()
+    stock_code : Mapped[str] = mapped_column()
+    type : Mapped[str] = mapped_column()  # e.g., "price_alert", "news_update"
