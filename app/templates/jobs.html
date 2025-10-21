@@ -8,6 +8,11 @@
 </head>
 <body>
     <h1>Scheduled Jobs</h1>
+    <!-- reload all jobs -->
+    <form method="POST" action="{{ url_for('main.reload_jobs') }}">
+        <button type="submit">Reload All Jobs</button>
+    </form>
+    <br>
     <!-- job csv link -->
     <a href="{{ url_for('static', filename='files/jobs.json') }}" download>Download All Jobs</a>
     <table class="job-list">

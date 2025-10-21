@@ -9,7 +9,7 @@ class BotScheduler:
     def reload_jobs_from_db(self):
         # 1. Shutdonw scheduler if running
         if self.scheduler.running:
-            self.scheduler.stop()
+            self.scheduler.shutdown()
 
         # 2. stop all existing jobs
         self.scheduler.remove_all_jobs()
