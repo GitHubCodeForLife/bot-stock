@@ -1,27 +1,6 @@
-from app.model.models import JobScheduler, JobOptLog
+from app.model.models import JobScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from app.scheduler.schedulerTask import mapJobFunction
-from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
-
-def job_listener(event):
-    print(f"Job {event.job_id} event received: {event.exception}")
-    if event.exception:
-        print('The job crashed :(')
-    else:
-        print('The job worked :)')
-    if event.exception:
-        log = JobOptLog(
-            job_id=event.job_id,
-            job_status="FAILED",
-            job_message =f"Job {event.job_id} failed with exception: {event.exception}"
-        )
-    else:
-        log = JobOptLog(
-            job_id=event.job_id,
-            job_status="SUCCESS",
-            job_message =f"Job {event.job_id} executed successfully."
-        )
-    log.save()
 
 class BotScheduler:
     def __init__(self):
@@ -52,5 +31,5 @@ class BotScheduler:
         if not self.scheduler.running:
             self.scheduler.start()   
     
-    def add_listener(self, listener, event_mask):
-        self.scheduler.add_listener(listener, event_mask)
+    def add_listener(self, listener):
+        self.scheduler.add_listener(listener)
