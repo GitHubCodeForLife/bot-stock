@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from config import Config
+from app.shareData import ShareData
 from app.model.models import User
 main = Blueprint('main', __name__)
 
@@ -13,8 +13,8 @@ def home():
 
 @main.route("/jobs")
 def jobPage():
-    job_list : list = Config.scheduler.get_jobs()
-    Config.scheduler.export_jobs("./app/static/files/jobs.json")
+    job_list : list = ShareData.botScheduler.scheduler.get_jobs()
+    ShareData.botScheduler.scheduler.export_jobs("./app/static/files/jobs.json")
 
     for job in job_list:
         print(job)

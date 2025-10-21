@@ -3,18 +3,14 @@ from app.vnstock.stock import StockUtil
 from app.utils.messageTemplate import MessageTemplate
 from app.utils.excelHelper import ExcelHelper
 from vnstock.botbuilder.noti import Messenger
-
 from config import Config
 
 ############ Stock price function - start ############
-stock_code_list = ["VND", "CEO", "GVR"]
 notif = Messenger(platform="telegram", channel=Config.chat_id, token_key=Config.token)
 
-def task_send_notif_stock_price():
-
-    # price = StockUtil.get_price_between_time("CEO","2025-10-14 10:00","2025-10-14 10:02")
-    # print(price)
-
+def task_send_notif_stock_price(data):
+    stock_code_list = data
+    print(f"Executing task_send_notif_stock_price with stock codes: {stock_code_list}")
     for stock_code in stock_code_list:
         # print(stock_code)
         notif.send_message(f"Checking stock price for {stock_code}...")
@@ -35,3 +31,7 @@ def task_send_notif_stock_price():
         #     chat_bot.send_message(message)
 
     ############ Stock price function - end ############
+
+mapJobFunction = {
+    "task_send_notif_stock_price": task_send_notif_stock_price
+}
