@@ -23,7 +23,7 @@ class BotScheduler:
                 trigger='interval',
                 seconds=job.job_interval,
                 id=job.job_id,
-                replace_existing=False, 
+                replace_existing=True, 
                 args=[job.job_data] if job.job_data else []
             )
             print(f"Loaded job {job.job_id} from database")

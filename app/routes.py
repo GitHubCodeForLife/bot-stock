@@ -19,9 +19,18 @@ def reload_jobs():
     # Redirect back to jobs page
     return redirect(url_for('main.jobPage'))
 
-@main.route("/fb/webhook", methods=['POST'])
+@main.route("/fb/webhook", methods=['POST', 'GET'])
 def webhok_received_fb():
-    data = request.get_json()
-    print(data)
-    return data
+    if request.method == 'POST':
+        data = request.get_json()
+        print(data)
+        return data
+    hub_mode = request.args.get('hub.mode')
+    hub_verify_token = request.args.get('hub.verify_token')
+    hub_challenge = request.args.get('hub.challenge')
+    
+    if hub_verify_token == "1234":
+        return hub_challenge, 200
+    else:
+        return "Verification failed", 400
     
