@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 from app.shareData import ShareData
 main = Blueprint('main', __name__)
 
@@ -18,3 +18,10 @@ def reload_jobs():
     ShareData.botScheduler.start()
     # Redirect back to jobs page
     return redirect(url_for('main.jobPage'))
+
+@main.route("/fb/webhook", methods=['POST'])
+def webhok_received_fb():
+    data = request.get_json()
+    print(data)
+    return data
+    
