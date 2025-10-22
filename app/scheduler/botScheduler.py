@@ -1,4 +1,3 @@
-from app.model.models import JobScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 
 class BotScheduler:
@@ -14,7 +13,8 @@ class BotScheduler:
         self.scheduler.remove_all_jobs()
 
         # 3. Load jobs from database
-        jobs = JobScheduler.query.all()
+        from app.model.jobSchedulerRepo import query_all_jobs
+        jobs = query_all_jobs()
         from app.scheduler.schedulerTask import mapJobFunction
 
         for job in jobs:

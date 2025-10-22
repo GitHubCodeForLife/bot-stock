@@ -5,3 +5,4 @@ flask
 Flask-APScheduler
 flask-sqlalchemy 
 pymysql
+python-dotenv

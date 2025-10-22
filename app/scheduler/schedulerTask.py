@@ -1,15 +1,15 @@
-from app.telegram.chatBot import ChatBot
+from app.bot.botTelegram import ChatBot
 from app.vnstock.stock import StockUtil
 from app.utils.messageTemplate import MessageTemplate
 from app.utils.excelHelper import ExcelHelper
 # from vnstock.botbuilder.noti import Messenger
-from config import Config
+import os
 import ast
 from app.model.notifcationLogRepo import add_notification_log, is_sent_notif_today
-
+from app.bot import botFacebook
 ############ Stock price function - start ############
 # notif = Messenger(platform="telegram", channel=Config.chat_id, token_key=Config.token)
-chatBot = ChatBot(token=Config.token, chat_id=Config.chat_id)
+chatBot = ChatBot(token=os.getenv('TELEGRAM_TOKEN'), chat_id=os.getenv('TELEGRAM_CHAT_ID'))
 def task_send_notif_stock_price(data):
     stock_code_list = ast.literal_eval(data)
     print(f"Executing task_send_notif_stock_price with stock codes: {stock_code_list}")
@@ -30,6 +30,8 @@ def task_send_notif_stock_price(data):
             else:
                 add_notification_log(platform="telegram", channel=chatBot.chat_id, message=message, stock_code=stock_code)
                 chatBot.send_message(message)
+                print(botFacebook.send_message(message_text=message))
+                add_notification_log(platform="facebook", channel=botFacebook.RECIPIENT_IDS[0], message=message, stock_code=stock_code)
         elif current_price < latest_price_by_date * 0.97:
             message = MessageTemplate.stock_price_message(stock_code, latest_price_by_date, current_price)
             if is_sent_notif_today(platform="telegram", channel=chatBot.chat_id, stock_code=stock_code):
@@ -38,6 +40,8 @@ def task_send_notif_stock_price(data):
             else:
                 add_notification_log(platform="telegram", channel=chatBot.chat_id, message=message, stock_code=stock_code)
                 chatBot.send_message(message)
+                botFacebook.send_message(message_text=message)
+                add_notification_log(platform="facebook", channel=botFacebook.RECIPIENT_IDS[0], message=message, stock_code=stock_code)
 
     ############ Stock price function - end ############
 

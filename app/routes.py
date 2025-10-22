@@ -1,14 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for
 from app.shareData import ShareData
-from app.model.models import User
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def home():
-    users = User.query.all()
-    print("Registered Users:")
-    for user in users:
-        print(f"ID: {user.id}, Username: {user.username}, Email: {user.email}")
     return render_template('index.html')
 
 @main.route("/jobs")
