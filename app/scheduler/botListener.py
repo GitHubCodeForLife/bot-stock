@@ -1,5 +1,5 @@
 from apscheduler.events import SchedulerEvent,  JobSubmissionEvent, JobExecutionEvent, JobEvent
-from app.model.models import JobScheduler, JobOptLog, db
+from app.model.jobOptLogRepo import add_job_opt_log, JobOptLog
 from app.shareData import ShareData
 def job_listener(event: JobEvent):
     print(event)
@@ -25,6 +25,4 @@ def job_listener(event: JobEvent):
         job.job_message = "Unknown event type"
     # save to db
     # print(job.job_func, job.job_status, job.job_time, job.job_message)
-    with ShareData.app.app_context():
-        db.session.add(job) 
-        db.session.commit()
+    add_job_opt_log(job.job_func, job.job_status, job.job_time, job.job_message)

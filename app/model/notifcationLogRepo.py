@@ -1,6 +1,16 @@
 from app.shareData import ShareData
-from app.model.models import NotificationLog, db
+from app.model.models import db
 from datetime import datetime
+from sqlalchemy.orm import Mapped, mapped_column
+
+class NotificationLog(db.Model):
+    log_id : Mapped[int] = mapped_column(primary_key=True)
+    platform : Mapped[str] = mapped_column()
+    channel : Mapped[str] = mapped_column()
+    message : Mapped[str] = mapped_column()
+    send_time : Mapped[datetime] = mapped_column()
+    stock_code : Mapped[str] = mapped_column()
+    type : Mapped[str] = mapped_column()  # e.g., "price_alert", "news_update"
 
 def add_notification_log(platform, channel, message, stock_code):
     with ShareData.app.app_context():
