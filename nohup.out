@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "run.py", line 3, in <module>
+    app = create_app()
+  File "/root/bot-stock/app/__init__.py", line 26, in create_app
+    ShareData.botScheduler.reload_jobs_from_db()
+  File "/root/bot-stock/app/scheduler/botScheduler.py", line 18, in reload_jobs_from_db
+    from app.scheduler.schedulerTask import mapJobFunction
+  File "/root/bot-stock/app/scheduler/schedulerTask.py", line 2, in <module>
+    from app.vnstock.stock import StockUtil
+  File "/root/bot-stock/app/vnstock/stock.py", line 1, in <module>
+    from vnstock import Vnstock
+  File "/usr/local/lib/python3.8/dist-packages/vnstock/__init__.py", line 8, in <module>
+    from .fundamental import *
+  File "/usr/local/lib/python3.8/dist-packages/vnstock/fundamental.py", line 2, in <module>
+    from bs4 import BeautifulSoup
+ModuleNotFoundError: No module named 'bs4'
