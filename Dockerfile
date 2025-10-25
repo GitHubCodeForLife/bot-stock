@@ -4,7 +4,8 @@ FROM python:3.12-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-
+# Set timezone environment variable
+ENV TZ=Asia/Bangkok
 # Set working directory inside the container
 WORKDIR /app
 
