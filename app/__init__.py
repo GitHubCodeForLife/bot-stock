@@ -1,5 +1,8 @@
 from flask import Flask
 from app.model.models import db
+from app.model.jobSchedulerRepo import JobScheduler
+from app.model.jobOptLogRepo import JobOptLog
+from app.model.notifcationLogRepo import NotificationLog
 from app.scheduler.botScheduler import BotScheduler
 from app.shareData import ShareData
 from app.scheduler.botListener import job_listener
@@ -23,6 +26,7 @@ def create_app():
     ShareData.botScheduler = BotScheduler()
     ShareData.app = app
     with app.app_context():
+        db.create_all()
         ShareData.botScheduler.reload_jobs_from_db()
         
     ShareData.botScheduler.add_listener(job_listener)

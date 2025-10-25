@@ -7,12 +7,13 @@ import os
 import ast
 from app.model.notifcationLogRepo import add_notification_log, is_sent_notif_today
 from app.bot import botFacebook
+from datetime import datetime
 ############ Stock price function - start ############
 # notif = Messenger(platform="telegram", channel=Config.chat_id, token_key=Config.token)
 chatBot = ChatBot(token=os.getenv('TELEGRAM_TOKEN'), chat_id=os.getenv('TELEGRAM_CHAT_ID'))
 def task_send_notif_stock_price(data):
     stock_code_list = ast.literal_eval(data)
-    print(f"Executing task_send_notif_stock_price with stock codes: {stock_code_list}")
+    chatBot.send_message(f"Executing task_send_notif_stock_price with stock codes: {stock_code_list} datetime {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     for stock_code in stock_code_list:
         print(f"Preparing to check stock price for {stock_code}...")
         latest_price_by_date = StockUtil.get_latest_price_by_date_of_stock(stock_code)

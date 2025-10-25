@@ -9,9 +9,11 @@ services:
             MYSQL_DATABASE: db
             MYSQL_USER: user
             MYSQL_PASSWORD: password
+            TZ: Asia/Bangkok
         volumes:
             - /home/kali/Docker/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
             - /home/kali/Docker/mysql/data:/var/lib/mysql
+            - /home/kali/Docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
         ports:
             - "3306:3306"
     adminer:
