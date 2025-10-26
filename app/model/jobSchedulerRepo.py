@@ -1,7 +1,7 @@
 from app.shareData import ShareData
 from app.model.models import db
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Integer, create_engine, Boolean
+from sqlalchemy import String, Integer, create_engine, Boolean, LargeBinary
 
 class JobScheduler(db.Model):
     job_id : Mapped[str] = mapped_column(String(255), primary_key=True)
@@ -14,6 +14,8 @@ class JobScheduler(db.Model):
     misfire_grace_time : Mapped[int] = mapped_column(Integer)
     max_instances : Mapped[int] = mapped_column(Integer)
     coalesce : Mapped[bool] = mapped_column(Boolean)
+    source_type: Mapped[str] = mapped_column(String(255))
+    source_code: Mapped[bytes] = mapped_column(LargeBinary)  
 
 def query_all_jobs():
     with ShareData.app.app_context():

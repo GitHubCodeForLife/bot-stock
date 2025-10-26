@@ -15,18 +15,18 @@ class BotScheduler:
         self.scheduler = BackgroundScheduler(executors = executors)
 
     def reload_jobs_from_db(self):
-        # # 1. Shutdonw scheduler if running
-        # if self.scheduler.running:
-        #     self.scheduler.shutdown(wait=False)
-
-        # 2. stop all existing jobs
+        # 1. stop all existing jobs
         self.scheduler.remove_all_jobs()
 
-        # 3. Load jobs from database
+        # 2. Load jobs from database
         from app.model.jobSchedulerRepo import query_all_jobs
         jobs = query_all_jobs()
 
         for job in jobs:
+            # 3. Check file is source save it into scheduler folder 
+            if job.source_type == 'custom_source':
+                self.write_to_file(job)
+
             if job.trigger == "interval": 
                 self.scheduler.add_job(
                     func=job.job_func,
@@ -66,3 +66,19 @@ class BotScheduler:
     
     def add_listener(self, listener):
         self.scheduler.add_listener(listener)
+
+    def write_to_file(self, job):
+        if not job.source_code:
+            print(f"⚠️ No file data for job {job.id}")
+            return 
+        SCHEDULER_FOLDER = "./app/scheduler"
+
+        filename = f"{job.job_id}.py"
+        file_path = os.path.join(SCHEDULER_FOLDER, filename)
+         # Save file to disk
+        try:
+            with open(file_path, 'wb') as f:
+                f.write(job.source_code)
+            print(f"✅ Saved file for job {job.job_id} -> {file_path}")
+        except Exception as e:
+            print(f"❌ Error saving file for job {job.id}: {e}")

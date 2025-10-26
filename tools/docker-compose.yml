@@ -23,3 +23,19 @@ services:
             - 8181:8080
         depends_on:
             - mysql
+
+    portainer:
+        image: portainer/portainer-ce:latest
+        container_name: portainer
+        restart: always
+        ports:
+        - "8000:8000"   # Agent communication (optional)
+        - "9443:9443"   # HTTPS web UI
+        volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - portainer_data:/data
+        environment:
+        - TZ=UTC  # Set your timezone, e.g. Europe/London
+
+volumes:
+  portainer_data:        

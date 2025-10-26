@@ -1,6 +1,5 @@
 from apscheduler.events import SchedulerEvent,  JobSubmissionEvent, JobExecutionEvent, JobEvent
 from app.model.jobOptLogRepo import add_job_opt_log, JobOptLog
-from app.shareData import ShareData
 def job_listener(event: JobEvent):
     print(event)
     # check event type
