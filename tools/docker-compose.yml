@@ -4,6 +4,8 @@ services:
         container_name: mysql
         restart: always
         image: mysql:latest
+        networks:
+            - my_bridge_network
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: db
@@ -19,6 +21,8 @@ services:
     adminer:
         image: adminer
         restart: always
+        networks:
+            - my_bridge_network
         ports:
             - 8181:8080
         depends_on:
@@ -28,6 +32,8 @@ services:
         image: portainer/portainer-ce:latest
         container_name: portainer
         restart: always
+        networks:
+            - my_bridge_network
         ports:
         - "8000:8000"   # Agent communication (optional)
         - "9443:9443"   # HTTPS web UI
@@ -41,6 +47,8 @@ services:
         image: nginx:stable-bullseye
         container_name: gateway
         restart: always
+        networks:
+            - my_bridge_network
         ports:
             - "80:80"
             - "443:443"
@@ -48,4 +56,8 @@ services:
             - ./gateway_local:/etc/nginx/
 
 volumes:
-  portainer_data:        
+    portainer_data:
+
+networks:
+    my_bridge_network:
+        external: true        
