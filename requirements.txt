@@ -7,3 +7,4 @@ flask-sqlalchemy
 pymysql
 python-dotenv
 pyuwsgi
+uWSGI
