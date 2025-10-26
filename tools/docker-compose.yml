@@ -36,6 +36,16 @@ services:
         - portainer_data:/data
         environment:
         - TZ=UTC  # Set your timezone, e.g. Europe/London
+    
+    gateway:
+        image: nginx:stable-bullseye
+        container_name: gateway
+        restart: always
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./gateway_local:/etc/nginx/
 
 volumes:
   portainer_data:        

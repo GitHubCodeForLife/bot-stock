@@ -17,4 +17,5 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Default command (you can override this in docker-compose or CLI)
-CMD ["python", "run.py"]
+# uwsgi --ini uwsgi.ini
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
