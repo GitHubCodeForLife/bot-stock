@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/jobs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/job_scheduler/jobs.css') }}">
 </head>
 <body>
     <h1>Scheduled Jobs</h1>
     <!-- reload all jobs -->
-    <form method="POST" action="{{ url_for('main.reload_jobs') }}">
+    <form method="POST" action="{{ url_for('main.jobs.reload_jobs') }}">
         <button type="submit">Reload All Jobs</button>
     </form>
     <br>
