@@ -1,0 +1,22 @@
+http {
+    ...
+    # Whitelist IP addresses
+    geo $whitelist {
+        default 0;
+        192.168.1.0/24 1;  # IP range to allow
+        10.0.0.1 1;        # Single IP to allow
+    }
+    
+    server {
+        ...
+        
+        location /restricted {
+            # Only allow whitelisted IP addresses
+            deny all;
+            allow $whitelist;
+            ...
+        }
+        
+        ...
+    }
+}
