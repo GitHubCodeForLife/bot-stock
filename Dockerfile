@@ -12,9 +12,15 @@ WORKDIR /app
 # Copy your local code to the container
 COPY . /app
 
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+    
 # (Optional) Install Python dependencies if you have requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Default command (you can override this in docker-compose or CLI)
-CMD ["python", "run.py"]
+# uwsgi --ini uwsgi.ini
+CMD ["uwsgi ", "--ini", "uwsgi.ini"]
