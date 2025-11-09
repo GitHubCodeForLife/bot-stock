@@ -7,3 +7,7 @@ flask-sqlalchemy
 pymysql
 python-dotenv
 uWSGI
+Flask-Caching
+redis
+# celery
+pika

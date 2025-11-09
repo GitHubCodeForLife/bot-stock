@@ -1,12 +1,5 @@
 -- Adminer 5.4.1 MySQL 9.5.0 dump
 
-SET NAMES utf8;
-SET time_zone = '+07:00';
-SET foreign_key_checks = 0;
-SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
-
-SET NAMES utf8mb4;
-
 DROP TABLE IF EXISTS `apscheduler_jobs`;
 CREATE TABLE `apscheduler_jobs` (
   `id` varchar(191) NOT NULL,
@@ -42,11 +35,12 @@ CREATE TABLE `job_scheduler` (
   `coalesce` tinyint(1) DEFAULT '1',
   `source_type` varchar(255) DEFAULT NULL,
   `source_code` longblob,
+  `is_active` tinyint DEFAULT NULL,
   PRIMARY KEY (`job_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `job_scheduler` (`job_id`, `job_func`, `job_data`, `trigger`, `job_interval`, `cron_expression`, `create_time`, `misfire_grace_time`, `max_instances`, `coalesce`, `source_type`, `source_code`) VALUES
-('fun_test',	'app.scheduler.schedulerTask:fun_test',	'[\"VND\", \"SSI\", \"VCI\"]',	'cron',	0,	'*/5 * * * *',	'',	0,	1,	1,	NULL,	NULL);
+INSERT INTO `job_scheduler` (`job_id`, `job_func`, `job_data`, `trigger`, `job_interval`, `cron_expression`, `create_time`, `misfire_grace_time`, `max_instances`, `coalesce`, `source_type`, `source_code`, `is_active`) VALUES
+('fun_test',	'app.scheduler.schedulerTask:fun_test',	'[\"VND\", \"SSI\", \"VCI\"]',	'cron',	0,	'*/5 * * * *',	'',	0,	1,	1,	NULL,	NULL,	1);
 
 DROP TABLE IF EXISTS `notification_log`;
 CREATE TABLE `notification_log` (
@@ -61,4 +55,4 @@ CREATE TABLE `notification_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- 2025-10-26 02:37:10 UTC
+-- 2025-11-09 06:54:42 UTC

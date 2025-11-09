@@ -16,6 +16,7 @@ class JobScheduler(db.Model):
     coalesce : Mapped[bool] = mapped_column(Boolean)
     source_type: Mapped[str] = mapped_column(String(255))
     source_code: Mapped[bytes] = mapped_column(LargeBinary)  
+    is_active : Mapped[bool] = mapped_column(Boolean)
 
 def query_all_jobs():
     with ShareData.app.app_context():

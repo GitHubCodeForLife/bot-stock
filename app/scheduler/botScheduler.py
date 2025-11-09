@@ -1,8 +1,10 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 import os 
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
+from app.pika import register_listener, callBack
+import threading
+
 class BotScheduler:
     def __init__(self):
         self.init()
@@ -23,6 +25,9 @@ class BotScheduler:
         jobs = query_all_jobs()
 
         for job in jobs:
+            # check if job is active
+            if not job.is_active:
+                continue
             # 3. Check file is source save it into scheduler folder 
             if job.source_type == 'custom_source':
                 self.write_to_file(job)
@@ -66,6 +71,11 @@ class BotScheduler:
     
     def add_listener(self, listener):
         self.scheduler.add_listener(listener)
+
+    def init_woker(self):
+        print("worker mode >> register listener")
+        consumer_thread = threading.Thread(target=register_listener, args=(callBack,), daemon=True)
+        consumer_thread.start()
 
     def write_to_file(self, job):
         if not job.source_code:
